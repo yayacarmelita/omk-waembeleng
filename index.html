@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,15 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Navbar -->
     <header class="navbar">
@@ -35,7 +39,105 @@
 
     <!-- Main Content Area -->
     <main id="main-content">
-        <!-- Sections will be injected here or statically typed -->
+        <!-- HERO SECTION -->
+        <section id="beranda" class="hero">
+            <div class="hero-bg">
+                <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=2073&auto=format&fit=crop"
+                    alt="OMK Wae Mbeleng 1 Community Banner">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container hero-content">
+                <span class="hero-badge">Selamat Datang di</span>
+                <h1 class="hero-title">OMK Wae Mbeleng 1</h1>
+                <p class="hero-subtitle">Muda, Kreatif, dan Beriman. Bersama membangun gereja dan sesama dengan semangat
+                    cinta kasih.</p>
+                <div class="hero-actions">
+                    <a href="#kegiatan" class="btn btn-primary">Lihat Kegiatan <i class='bx bx-right-arrow-alt'></i></a>
+                    <a href="#profil" class="btn btn-outline">Kenali Kami Lebih Dekat</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- TENTANG KAMI SECTION -->
+        <section id="tentang-kami" class="about section-padding">
+            <div class="container about-container">
+                <div class="about-text">
+                    <h4 class="section-subtitle">Siapakah Kami?</h4>
+                    <h2 class="section-title">Orang Muda Katolik<br>Wae Mbeleng 1</h2>
+                    <p>Kami adalah sekumpulan anak muda dari wilayah Wae Mbeleng 1 yang berhimpun dalam semangat
+                        persaudaraan Kristiani. Dengan semangat jiwa muda, kami aktif dalam berbagai pelayanan gerejani
+                        maupun kegiatan sosial kemasyarakatan.</p>
+                    <p>Misi kami adalah menjadi garam dan terang dunia, mulai dari lingkungan terdekat hingga memberikan
+                        dampak positif bagi paroki dan masyarakat luas.</p>
+                    <a href="#profil" class="link-forward">Selengkapnya tentang Visi & Misi <i
+                            class='bx bx-right-arrow-alt'></i></a>
+                </div>
+                <div class="about-image">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953eb1b5b6?q=80&w=2070&auto=format&fit=crop"
+                            alt="Kegiatan Bersama OMK">
+                        <div class="img-accent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PREVIEW KEGIATAN SECTION -->
+        <section id="preview-kegiatan" class="preview-activities section-padding bg-alt">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h4 class="section-subtitle">Kegiatan Kami</h4>
+                        <h2 class="section-title">Aksi & Pelayanan Terbaru</h2>
+                    </div>
+                    <a href="#kegiatan" class="btn btn-outline">Lihat Semua Kegiatan</a>
+                </div>
+                <div class="preview-grid">
+                    <!-- Card 1 -->
+                    <div class="activity-card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop"
+                                alt="Bakti Sosial">
+                            <span class="card-tag">Sosial</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-date"><i class='bx bx-calendar'></i> 20 Feb 2026</span>
+                            <h3 class="card-title">Bakti Sosial Lingkungan</h3>
+                            <p class="card-desc">Kegiatan gotong royong membersihkan area gereja dan lingkungan sekitar
+                                bersama warga setempat.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="activity-card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2070&auto=format&fit=crop"
+                                alt="Latihan Paduan Suara">
+                            <span class="card-tag">Liturgi</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-date"><i class='bx bx-calendar'></i> 14 Feb 2026</span>
+                            <h3 class="card-title">Latihan Kor Persiapan Paskah</h3>
+                            <p class="card-desc">Latihan rutin paduan suara OMK untuk mempersiapkan tugas litrugi pada
+                                perayaan Tri Hari Suci.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="activity-card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=2070&auto=format&fit=crop"
+                                alt="Retret OMK">
+                            <span class="card-tag">Rohani</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-date"><i class='bx bx-calendar'></i> 05 Jan 2026</span>
+                            <h3 class="card-title">Retret Awal Tahun</h3>
+                            <p class="card-desc">Pembekalan rohani dan keakraban antar anggota OMK dalam menyambut
+                                lembaran baru di tahun 2026.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -59,4 +161,5 @@
     <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
+
 </html>
