@@ -43,7 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Render Profile Page Data
     renderProfilData();
 
-    // 4. Mobile Menu Toggle logic
+    // 4. Render Full Content pages (Kegiatan & Pengumuman)
+    renderFullActivities();
+    renderFullPengumuman();
+    renderFullPasar();
+
+    // 5. Mobile Menu Toggle logic
     if (mobileMenu) {
         mobileMenu.addEventListener('click', () => {
             navLinks.classList.toggle('show');
@@ -121,6 +126,97 @@ links.forEach(link => {
 // For a vanilla SPA, we can handle hash changes to show/hide sections
 window.addEventListener('hashchange', handleRouting);
 window.addEventListener('load', handleRouting);
+
+// --- Full Content Renderers for Separate Pages ---
+
+function renderFullActivities() {
+    const grid = document.getElementById('full-kegiatan-grid');
+    if (!grid) return;
+
+    const activities = DataManager.load(DataManager.KEYS.KEGIATAN);
+    if (!activities || activities.length === 0) {
+        grid.innerHTML = '<p class="no-data">Belum ada kegiatan yang terdaftar.</p>';
+        return;
+    }
+
+    grid.innerHTML = activities.map(item => `
+        <div class="activity-card" onclick="openModal('${item.id}')">
+            <div class="card-img">
+                <img src="${item.image}" alt="${item.title}">
+                <span class="card-tag">${item.category}</span>
+            </div>
+            <div class="card-body">
+                <span class="card-date"><i class='bx bx-calendar'></i> ${formatDate(item.date)}</span>
+                <h3 class="card-title">${item.title}</h3>
+                <p class="card-desc">${item.content.substring(0, 100)}${item.content.length > 100 ? '...' : ''}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderFullPengumuman() {
+    const list = document.getElementById('full-pengumuman-list');
+    if (!list) return;
+
+    const announcements = DataManager.load(DataManager.KEYS.PENGUMUMAN);
+    if (!announcements || announcements.length === 0) {
+        list.innerHTML = '<p class="no-data">Belum ada pengumuman saat ini.</p>';
+        return;
+    }
+
+    list.innerHTML = announcements.map(item => {
+        const d = new Date(item.date);
+        const day = d.getDate().toString().padStart(2, '0');
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        const month = monthNames[d.getMonth()];
+
+        return `
+            <div class="announcement-item">
+                <div class="ann-date">
+                    <span class="day">${day}</span>
+                    <span class="month">${month}</span>
+                </div>
+                <div class="ann-content">
+                    <h3>${item.title}</h3>
+                    <p>${item.content}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderFullPasar() {
+    const grid = document.getElementById('full-pasar-grid');
+    if (!grid) return;
+
+    const products = DataManager.load(DataManager.KEYS.PASAR);
+    if (!products || products.length === 0) {
+        grid.innerHTML = '<p class="no-data">Belum ada produk di Pasar OMK.</p>';
+        return;
+    }
+
+    const profilData = DataManager.load(DataManager.KEYS.PROFIL);
+    const waNumber = (profilData && profilData.kontak.wa) ? profilData.kontak.wa : '6281234567890';
+
+    grid.innerHTML = products.map(item => `
+        <div class="product-card">
+            <div class="product-img">
+                ${item.badge ? `<span class="product-badge">${item.badge}</span>` : ''}
+                <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="product-info">
+                <h3>${item.name}</h3>
+                <span class="price">Rp ${item.price.toLocaleString('id-ID')}</span>
+                <p>Dukung karya pelayanan kami. Klik tombol di bawah untuk memesan via WhatsApp.</p>
+                <a href="https://wa.me/${waNumber}?text=Halo%2C%20saya%20tertarik%20pesan%20${encodeURIComponent(item.name)}"
+                    target="_blank" class="btn btn-outline"
+                    style="width: 100%; justify-content: center; margin-top: 15px;">
+                    <i class='bx bx-cart'></i> Pesan Sekarang
+                </a>
+            </div>
+        </div>
+    `).join('');
+}
 
 function handleRouting() {
     let hash = window.location.hash || '#beranda';

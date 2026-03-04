@@ -50,91 +50,8 @@
                     </div>
                 </div>
 
-                <div class="preview-grid">
-                    <!-- Card 1 -->
-                    <div class="activity-card" onclick="openModal('kegiatan1')">
-                        <div class="card-img">
-                            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop"
-                                alt="Bakti Sosial">
-                            <span class="card-tag">Sosial</span>
-                        </div>
-                        <div class="card-body">
-                            <span class="card-date"><i class='bx bx-calendar'></i> 20 Feb 2026</span>
-                            <h3 class="card-title">Bakti Sosial Lingkungan</h3>
-                            <p class="card-desc">Klik untuk melihat detail kegiatan gotong royong membersihkan area
-                                gereja dan lingkungan sekitar.</p>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="activity-card" onclick="openModal('kegiatan2')">
-                        <div class="card-img">
-                            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2070&auto=format&fit=crop"
-                                alt="Latihan Paduan Suara">
-                            <span class="card-tag">Liturgi</span>
-                        </div>
-                        <div class="card-body">
-                            <span class="card-date"><i class='bx bx-calendar'></i> 14 Feb 2026</span>
-                            <h3 class="card-title">Latihan Kor Persiapan Paskah</h3>
-                            <p class="card-desc">Latihan rutin paduan suara OMK untuk mempersiapkan tugas litrugi Tri
-                                Hari Suci.</p>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="activity-card" onclick="openModal('kegiatan3')">
-                        <div class="card-img">
-                            <img src="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=2070&auto=format&fit=crop"
-                                alt="Retret OMK">
-                            <span class="card-tag">Rohani</span>
-                        </div>
-                        <div class="card-body">
-                            <span class="card-date"><i class='bx bx-calendar'></i> 05 Jan 2026</span>
-                            <h3 class="card-title">Retret Awal Tahun</h3>
-                            <p class="card-desc">Pembekalan rohani dan keakraban antar anggota OMK dalam menyambut tahun
-                                2026.</p>
-                        </div>
-                    </div>
-                    <!-- Card 4 -->
-                    <div class="activity-card" onclick="openModal('kegiatan4')">
-                        <div class="card-img">
-                            <img src="https://images.unsplash.com/photo-1526976663112-001555921477?q=80&w=2070&auto=format&fit=crop"
-                                alt="Malam Keakraban">
-                            <span class="card-tag">Persaudaraan</span>
-                        </div>
-                        <div class="card-body">
-                            <span class="card-date"><i class='bx bx-calendar'></i> 28 Des 2025</span>
-                            <h3 class="card-title">Malam Keakraban OMK</h3>
-                            <p class="card-desc">Acara kumpul akhir tahun untuk mempererat tali persaudaraan sesama
-                                anggota.</p>
-                        </div>
-                    </div>
-                    <!-- Card 5 -->
-                    <div class="activity-card" onclick="openModal('kegiatan5')">
-                        <div class="card-img">
-                            <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?q=80&w=1974&auto=format&fit=crop"
-                                alt="Seminar Pemuda">
-                            <span class="card-tag">Pendidikan</span>
-                        </div>
-                        <div class="card-body">
-                            <span class="card-date"><i class='bx bx-calendar'></i> 15 Nov 2025</span>
-                            <h3 class="card-title">Seminar Kewirausahaan Pemuda</h3>
-                            <p class="card-desc">Mengundang tokoh inspiratif untuk membagikan ilmu kewirausahaan kepada
-                                anggota OMK.</p>
-                        </div>
-                    </div>
-                    <!-- Card 6 -->
-                    <div class="activity-card" onclick="openModal('kegiatan6')">
-                        <div class="card-img">
-                            <img src="https://images.unsplash.com/photo-1540822607835-0816df989f66?q=80&w=1951&auto=format&fit=crop"
-                                alt="Porseni Paroki">
-                            <span class="card-tag">Olahraga</span>
-                        </div>
-                        <div class="card-body">
-                            <span class="card-date"><i class='bx bx-calendar'></i> 20 Okt 2025</span>
-                            <h3 class="card-title">Porseni Tingkat Paroki</h3>
-                            <p class="card-desc">Partisipasi aktif anggota OMK Wae Mbeleng 1 dalam Pekan Olahraga dan
-                                Seni Paroki.</p>
-                        </div>
-                    </div>
+                <div class="preview-grid" id="full-kegiatan-grid">
+                    <!-- Dynamic cards will be injected here -->
                 </div>
             </div>
         </section>
@@ -172,6 +89,7 @@
     </footer>
 
     <!-- Custom JS -->
+    <script src="data-manager.js"></script>
     <script src="script.js"></script>
 </body>
 
