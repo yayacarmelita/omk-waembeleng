@@ -16,6 +16,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
+    <script src="data-manager.js"></script>
     <script>
         // Redirect if not logged in
         if (!localStorage.getItem('omk_admin_current')) {
@@ -37,6 +38,10 @@
             <nav class="sidebar-nav">
                 <a href="#dashboard" class="sidebar-link active" data-target="dashboard-view">
                     <i class='bx bxs-dashboard'></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#beranda" class="sidebar-link" data-target="beranda-view">
+                    <i class='bx bx-home'></i>
                     <span>Beranda</span>
                 </a>
                 <span class="sidebar-title">Kelola Konten</span>
@@ -161,6 +166,104 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+
+                <!-- View: Pengaturan Beranda -->
+                <div id="beranda-view" class="admin-view">
+                    <div class="view-header">
+                        <div>
+                            <h2>Pengaturan Beranda</h2>
+                            <p>Ubah teks banner hero dan bagian "Siapa Kami".</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-card form-card">
+                        <h3>Banner Hero</h3>
+                        <form id="form-home-hero" class="admin-form">
+                            <div class="form-group">
+                                <label>Judul Utama</label>
+                                <input type="text" id="hero-title-input" placeholder="Contoh: Menjadi Saksi Kristus...">
+                            </div>
+                            <div class="form-group">
+                                <label>Sub-judul</label>
+                                <textarea id="hero-subtitle-input" placeholder="Deskripsi singkat hero..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan Banner</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card form-card" style="margin-top: 20px;">
+                        <h3>Tentang Kami (Beranda)</h3>
+                        <form id="form-home-about" class="admin-form">
+                            <div class="form-group">
+                                <label>Judul Bagian</label>
+                                <input type="text" id="about-title-input" placeholder="Contoh: Siapa Kami?">
+                            </div>
+                            <div class="form-group">
+                                <label>Konten Singkat</label>
+                                <textarea id="about-content-input" style="height: 120px;"
+                                    placeholder="Tulis deskripsi singkat..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan Bagian Tentang Kami</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- View: Pengaturan Profil -->
+                <div id="profil-view" class="admin-view">
+                    <div class="view-header">
+                        <div>
+                            <h2>Pengaturan Profil</h2>
+                            <p>Ubah Sejarah, Visi, Misi, dan Kontak OMK.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-card form-card">
+                        <h3>Visi, Misi & Sejarah</h3>
+                        <form id="form-profil-vms" class="admin-form">
+                            <div class="form-group">
+                                <label>Sejarah Singkat</label>
+                                <textarea id="profil-history-input" style="height: 120px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Visi</label>
+                                <textarea id="profil-visi-input" style="height: 80px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Misi (Pisahkan dengan baris baru)</label>
+                                <textarea id="profil-misi-input" style="height: 150px;"
+                                    placeholder="Meningkatkan iman...&#10;Menjalin persaudaraan..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan Profil</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card form-card" style="margin-top: 20px;">
+                        <h3>Kontak & Sekretariat</h3>
+                        <form id="form-profil-contact" class="admin-form">
+                            <div class="form-group grid-2">
+                                <div class="field">
+                                    <label>WhatsApp (Tanpa +)</label>
+                                    <input type="text" id="contact-wa-input" placeholder="62812...">
+                                </div>
+                                <div class="field">
+                                    <label>Instagram Handle</label>
+                                    <input type="text" id="contact-ig-input" placeholder="@omk...">
+                                </div>
+                            </div>
+                            <div class="form-group grid-2" style="margin-top: 15px;">
+                                <div class="field">
+                                    <label>Facebook Name</label>
+                                    <input type="text" id="contact-fb-input" placeholder="OMK Wae Mbeleng 1">
+                                </div>
+                                <div class="field">
+                                    <label>Alamat Sekretariat</label>
+                                    <input type="text" id="contact-alamat-input" placeholder="Jl. Gereja...">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan Kontak</button>
+                        </form>
                     </div>
                 </div>
 
@@ -450,8 +553,89 @@
                     if (window.innerWidth <= 768) {
                         sidebar.classList.remove('active');
                     }
+
+                    // Load Data if switching to Beranda or Profil
+                    if (targetId === 'beranda-view') loadHomeForm();
+                    if (targetId === 'profil-view') loadProfilForm();
                 });
             });
+
+            // =========================================================
+            // CRUD LOGIC FOR BERANDA & PROFIL
+            // =========================================================
+
+            function loadHomeForm() {
+                const data = DataManager.load(DataManager.KEYS.HOME);
+                if (!data) return;
+                document.getElementById('hero-title-input').value = data.hero.title;
+                document.getElementById('hero-subtitle-input').value = data.hero.subtitle;
+                document.getElementById('about-title-input').value = data.about.title;
+                document.getElementById('about-content-input').value = data.about.content;
+            }
+
+            function loadProfilForm() {
+                const data = DataManager.load(DataManager.KEYS.PROFIL);
+                if (!data) return;
+                document.getElementById('profil-history-input').value = data.sejarah;
+                document.getElementById('profil-visi-input').value = data.visi;
+                document.getElementById('profil-misi-input').value = data.misi.join('\n');
+                document.getElementById('contact-wa-input').value = data.kontak.wa;
+                document.getElementById('contact-ig-input').value = data.kontak.ig;
+                document.getElementById('contact-fb-input').value = data.kontak.fb;
+                document.getElementById('contact-alamat-input').value = data.kontak.alamat;
+            }
+
+            // Form Submissions
+            const formHero = document.getElementById('form-home-hero');
+            if (formHero) {
+                formHero.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const data = DataManager.load(DataManager.KEYS.HOME);
+                    data.hero.title = document.getElementById('hero-title-input').value;
+                    data.hero.subtitle = document.getElementById('hero-subtitle-input').value;
+                    DataManager.save(DataManager.KEYS.HOME, data);
+                    alert('Banner Hero berhasil diperbarui!');
+                });
+            }
+
+            const formAbout = document.getElementById('form-home-about');
+            if (formAbout) {
+                formAbout.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const data = DataManager.load(DataManager.KEYS.HOME);
+                    data.about.title = document.getElementById('about-title-input').value;
+                    data.about.content = document.getElementById('about-content-input').value;
+                    DataManager.save(DataManager.KEYS.HOME, data);
+                    alert('Tentang Kami berhasil diperbarui!');
+                });
+            }
+
+            const formProfil = document.getElementById('form-profil-vms');
+            if (formProfil) {
+                formProfil.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const data = DataManager.load(DataManager.KEYS.PROFIL);
+                    data.sejarah = document.getElementById('profil-history-input').value;
+                    data.visi = document.getElementById('profil-visi-input').value;
+                    data.misi = document.getElementById('profil-misi-input').value.split('\n').filter(m => m.trim() !== '');
+                    DataManager.save(DataManager.KEYS.PROFIL, data);
+                    alert('Data Profil berhasil diperbarui!');
+                });
+            }
+
+            const formContact = document.getElementById('form-profil-contact');
+            if (formContact) {
+                formContact.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const data = DataManager.load(DataManager.KEYS.PROFIL);
+                    data.kontak.wa = document.getElementById('contact-wa-input').value;
+                    data.kontak.ig = document.getElementById('contact-ig-input').value;
+                    data.kontak.fb = document.getElementById('contact-fb-input').value;
+                    data.kontak.alamat = document.getElementById('contact-alamat-input').value;
+                    DataManager.save(DataManager.KEYS.PROFIL, data);
+                    alert('Kontak berhasil diperbarui!');
+                });
+            }
         });
     </script>
 </body>

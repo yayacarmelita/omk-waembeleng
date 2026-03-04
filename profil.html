@@ -15,6 +15,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <script src="data-manager.js" defer></script>
 </head>
 
 <body>
@@ -56,20 +57,22 @@
                     <div class="vms-card">
                         <i class='bx bx-history vms-icon'></i>
                         <h3>Sejarah Singkat</h3>
-                        <p>OMK Wae Mbeleng 1 terbentuk atas dasar panggilan nurani kaum muda untuk mengambil peran aktif
+                        <p id="profil-history">OMK Wae Mbeleng 1 terbentuk atas dasar panggilan nurani kaum muda untuk
+                            mengambil peran aktif
                             dalam kehidupan menggereja di Wae Mbeleng. Berawal dari komunitas kecil paduan suara, kini
                             telah berkembang mencakup berbagai bidang pelayanan dan sosial kemasyarakatan.</p>
                     </div>
                     <div class="vms-card">
                         <i class='bx bx-target-lock vms-icon'></i>
                         <h3>Visi</h3>
-                        <p>Mewujudkan kaum muda Katolik yang beriman tangguh, berkarakter Kristiani, tanggap terhadap
+                        <p id="profil-visi">Mewujudkan kaum muda Katolik yang beriman tangguh, berkarakter Kristiani,
+                            tanggap terhadap
                             tantangan zaman, dan siap sedia melayani gereja serta masyarakat di Wae Mbeleng 1.</p>
                     </div>
                     <div class="vms-card">
                         <i class='bx bx-list-check vms-icon'></i>
                         <h3>Misi</h3>
-                        <ul class="misi-list">
+                        <ul class="misi-list" id="profil-misi-list">
                             <li><i class='bx bx-check-circle'></i> Mengadakan pembinaan iman secara berkelanjutan.</li>
                             <li><i class='bx bx-check-circle'></i> Berperan aktif dalam kegiatan liturgi dan karya
                                 pastoral.</li>
@@ -90,47 +93,8 @@
                             <h2 class="section-title">Struktur Organisasi</h2>
                         </div>
                     </div>
-                    <div class="org-grid">
-                        <div class="org-card">
-                            <div class="org-img">
-                                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop"
-                                    alt="Ketua OMK">
-                            </div>
-                            <div class="org-info">
-                                <h4>Yohanes Putra</h4>
-                                <span>Ketua OMK</span>
-                            </div>
-                        </div>
-                        <div class="org-card">
-                            <div class="org-img">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop"
-                                    alt="Wakil Ketua">
-                            </div>
-                            <div class="org-info">
-                                <h4>Maria Lestari</h4>
-                                <span>Wakil Ketua</span>
-                            </div>
-                        </div>
-                        <div class="org-card">
-                            <div class="org-img">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop"
-                                    alt="Sekretaris">
-                            </div>
-                            <div class="org-info">
-                                <h4>Fransiskus X.</h4>
-                                <span>Sekretaris</span>
-                            </div>
-                        </div>
-                        <div class="org-card">
-                            <div class="org-img">
-                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop"
-                                    alt="Bendahara">
-                            </div>
-                            <div class="org-info">
-                                <h4>Agnes Monica</h4>
-                                <span>Bendahara</span>
-                            </div>
-                        </div>
+                    <div class="org-grid" id="profil-org-grid">
+                        <!-- Org card will be injected here -->
                     </div>
                 </div>
 
