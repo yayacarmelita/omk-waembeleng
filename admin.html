@@ -16,6 +16,12 @@
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
+    <script>
+        // Redirect if not logged in
+        if (!localStorage.getItem('omk_admin_current')) {
+            window.location.href = 'login.html';
+        }
+    </script>
 </head>
 
 <body class="admin-body">
@@ -31,31 +37,27 @@
             <nav class="sidebar-nav">
                 <a href="#dashboard" class="sidebar-link active" data-target="dashboard-view">
                     <i class='bx bxs-dashboard'></i>
-                    <span>Dashboard</span>
+                    <span>Beranda</span>
                 </a>
                 <span class="sidebar-title">Kelola Konten</span>
-                <a href="#kegiatan" class="sidebar-link" data-target="kegiatan-view">
-                    <i class='bx bx-images'></i>
-                    <span>Kegiatan & Galeri</span>
-                </a>
-                <a href="#pengumuman" class="sidebar-link" data-target="pengumuman-view">
-                    <i class='bx bx-bell'></i>
-                    <span>Pengumuman</span>
-                </a>
-                <a href="#pasar" class="sidebar-link" data-target="pasar-view">
-                    <i class='bx bx-store'></i>
-                    <span>Pasar OMK</span>
-                </a>
                 <a href="#profil" class="sidebar-link" data-target="profil-view">
                     <i class='bx bx-user-circle'></i>
-                    <span>Pengurus & Profil</span>
+                    <span>Profil</span>
+                </a>
+                <a href="#kegiatan" class="sidebar-link" data-target="kegiatan-view">
+                    <i class='bx bx-images'></i>
+                    <span>Kegiatan</span>
+                </a>
+                <a href="#pengumuman-pasar" class="sidebar-link" data-target="pengumuman-view">
+                    <i class='bx bx-news'></i>
+                    <span>Pengumuman & Pasar</span>
                 </a>
             </nav>
             <div class="sidebar-footer">
-                <a href="index.html" class="btn btn-outline"
-                    style="width: 100%; border-color: rgba(255,255,255,0.2); color: var(--clr-light);">
+                <button type="button" id="logoutBtn" class="btn btn-outline"
+                    style="width: 100%; border-color: rgba(255,255,255,0.2); color: var(--clr-light); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class='bx bx-log-out'></i> Keluar
-                </a>
+                </button>
             </div>
         </aside>
 
@@ -67,11 +69,13 @@
                     <i class='bx bx-menu' id="openSidebarBtn"></i>
                     <h2>Dashboard Overview</h2>
                 </div>
-                <div class="topbar-right">
+                <div class="topbar-right" style="display: flex; align-items: center; gap: 20px;">
+                    <button class="btn btn-outline" id="addAdminBtn" style="padding: 6px 15px; font-size: 0.85rem;"><i
+                            class='bx bx-user-plus'></i> Tambah Admin</button>
                     <div class="admin-user">
                         <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop"
                             alt="Admin Profile">
-                        <span>Yohanes (Admin)</span>
+                        <span id="currentAdminEmail">Admin</span>
                     </div>
                 </div>
             </header>
@@ -219,82 +223,69 @@
                     </div>
                 </div>
 
-                <!-- View: Kelola Pengumuman -->
+                <!-- View: Kelola Pengumuman & Pasar -->
                 <div id="pengumuman-view" class="admin-view">
                     <div class="view-header">
                         <div>
-                            <h2>Kelola Pengumuman</h2>
-                            <p>Tambahkan informasi atau berita terbaru untuk anggota.</p>
+                            <h2>Kelola Pengumuman & Pasar OMK</h2>
+                            <p>Tambahkan informasi terbaru dan produk usaha dana.</p>
                         </div>
                     </div>
 
-                    <div class="admin-card form-card">
-                        <h3>Buat Pengumuman Baru</h3>
-                        <form class="admin-form">
-                            <div class="form-group grid-2">
-                                <div>
-                                    <label for="p-judul">Judul Pengumuman</label>
-                                    <input type="text" id="p-judul" placeholder="Contoh: Rapat Mingguan">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 30px;">
+                        <div class="admin-card form-card">
+                            <h3>Buat Pengumuman Baru</h3>
+                            <form class="admin-form">
+                                <div class="form-group grid-2">
+                                    <div>
+                                        <label for="p-judul">Judul Pengumuman</label>
+                                        <input type="text" id="p-judul" placeholder="Contoh: Rapat Mingguan">
+                                    </div>
+                                    <div>
+                                        <label for="p-tanggal">Tanggal Tampil</label>
+                                        <input type="date" id="p-tanggal">
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="p-tanggal">Tanggal Tampil</label>
-                                    <input type="date" id="p-tanggal">
+                                <div class="form-group">
+                                    <label for="p-isi">Isi Pengumuman</label>
+                                    <textarea id="p-isi" rows="3"
+                                        placeholder="Ketikkan detail informasi di sini..."></textarea>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="p-isi">Isi Pengumuman</label>
-                                <textarea id="p-isi" rows="4"
-                                    placeholder="Ketikkan detail informasi di sini..."></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Publish Pengumuman</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- View: Kelola Pasar OMK -->
-                <div id="pasar-view" class="admin-view">
-                    <div class="view-header">
-                        <div>
-                            <h2>Kelola Pasar OMK</h2>
-                            <p>Tambah atau edit produk jualan / usaha dana.</p>
+                                <div class="form-actions" style="margin-top: 20px; padding-top: 15px;">
+                                    <button type="button" class="btn btn-primary">Publish Pengumuman</button>
+                                </div>
+                            </form>
                         </div>
-                    </div>
 
-                    <div class="admin-card form-card">
-                        <h3>Tambah Produk Baru</h3>
-                        <form class="admin-form">
-                            <div class="form-group grid-2">
-                                <div>
-                                    <label for="ps-nama">Nama Produk</label>
-                                    <input type="text" id="ps-nama" placeholder="Contoh: Kaos OMK">
+                        <div class="admin-card form-card">
+                            <h3>Tambah Produk Pasar Baru</h3>
+                            <form class="admin-form">
+                                <div class="form-group grid-2">
+                                    <div>
+                                        <label for="ps-nama">Nama Produk</label>
+                                        <input type="text" id="ps-nama" placeholder="Contoh: Kaos OMK">
+                                    </div>
+                                    <div>
+                                        <label for="ps-harga">Harga (Rp)</label>
+                                        <input type="number" id="ps-harga" placeholder="Contoh: 120000">
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="ps-harga">Harga (Rp)</label>
-                                    <input type="number" id="ps-harga" placeholder="Contoh: 120000">
+                                <div class="form-group grid-2">
+                                    <div>
+                                        <label for="ps-badge">Label (Opsional)</label>
+                                        <input type="text" id="ps-badge" placeholder="Contoh: Pre-Order / Terlaris">
+                                    </div>
+                                    <div>
+                                        <label for="ps-foto">Foto Produk</label>
+                                        <input type="file" id="ps-foto" accept="image/*"
+                                            style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group grid-2">
-                                <div>
-                                    <label for="ps-badge">Label (Opsional)</label>
-                                    <input type="text" id="ps-badge" placeholder="Contoh: Pre-Order / Terlaris">
+                                <div class="form-actions" style="margin-top: 20px; padding-top: 15px;">
+                                    <button type="button" class="btn btn-primary">Simpan Produk</button>
                                 </div>
-                                <div>
-                                    <label for="ps-foto">Foto Produk</label>
-                                    <input type="file" id="ps-foto" accept="image/*"
-                                        style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="ps-deskripsi">Deskripsi Produk</label>
-                                <textarea id="ps-deskripsi" rows="3"
-                                    placeholder="Jelaskan bahan, varian rasa, atau ukuran..."></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Simpan Produk</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -342,16 +333,83 @@
         </div>
     </div>
 
-    <script>
-        // Simple script to handle sidebar toggling and view switching in Admin
-        document.addEventListener('DOMContentLoaded', () => {
-            const sidebar = document.getElementById('adminSidebar');
-            const openBtn = document.getElementById('openSidebarBtn');
-            const closeBtn = document.getElementById('closeSidebarBtn');
-            const navLinks = document.querySelectorAll('.sidebar-nav .sidebar-link');
-            const views = document.querySelectorAll('.admin-view');
-            const topbarTitle = document.querySelector('.topbar-left h2');
+    <!-- Modal Tambah Admin -->
+    <div class="admin-modal-overlay" id="addAdminModal">
+        <div class="admin-modal-card">
+            <div class="admin-modal-header">
+                <h3>Tambah Admin Baru</h3>
+                <i class='bx bx-x admin-modal-close' id="closeAdminModal"></i>
+            </div>
+            <form id="newAdminForm" class="admin-form">
+                <div class="form-group">
+                    <label for="newAdminEmail">Email Admin</label>
+                    <input type="email" id="newAdminEmail" placeholder="admin2@omkwambeleng1.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="newAdminPassword">Password</label>
+                    <input type="password" id="newAdminPassword" placeholder="••••••••" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Simpan Admin</button>
+                    <button type="button" class="btn btn-outline" id="cancelAdminModal"
+                        style="border-color: #ddd; color: var(--clr-dark);">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current admin email on topbar
+            const currentEmail = localStorage.getItem('omk_admin_current');
+            if (currentEmail) {
+                const el = document.getElementById('currentAdminEmail');
+                if (el) el.textContent = currentEmail.split('@')[0];
+            }
+
+            // Logout Handler
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('omk_admin_current');
+                    window.location.href = 'login.html';
+                });
+            }
+
+            // Modal Tambah Admin Logic
+            const modal = document.getElementById('addAdminModal');
+            const openModalBtn = document.getElementById('addAdminBtn');
+            const closeBtn = document.getElementById('closeAdminModal');
+            const cancelBtn = document.getElementById('cancelAdminModal');
+            const form = document.getElementById('newAdminForm');
+
+            if (openModalBtn) openModalBtn.addEventListener('click', () => modal.classList.add('active'));
+            if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+            if (cancelBtn) cancelBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newEmail = document.getElementById('newAdminEmail').value.trim();
+                    const newPass = document.getElementById('newAdminPassword').value;
+
+                    try {
+                        const users = JSON.parse(localStorage.getItem('omk_admin_users')) || [];
+                        // Check if exists
+                        if (users.find(u => u.email === newEmail)) {
+                            alert('Email ini sudah terdaftar sebagai admin!');
+                            return;
+                        }
+                        users.push({ email: newEmail, password: newPass });
+                        localStorage.setItem('omk_admin_users', JSON.stringify(users));
+                        alert('Admin baru berhasil ditambahkan!');
+                        modal.classList.remove('active');
+                        form.reset();
+                    } catch (err) {
+                        alert('Gagal menambahkan admin.');
+                    }
+                });
+            }
             // Sidebar toggle
             if (openBtn) openBtn.addEventListener('click', () => sidebar.classList.add('active'));
             if (closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
