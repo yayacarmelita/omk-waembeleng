@@ -98,7 +98,7 @@
                             </div>
                             <div class="stat-info">
                                 <h3>Total Kegiatan</h3>
-                                <h2>24</h2>
+                                <h2 id="stat-total-kegiatan">24</h2>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -107,7 +107,7 @@
                             </div>
                             <div class="stat-info">
                                 <h3>Pengumuman Aktif</h3>
-                                <h2>3</h2>
+                                <h2 id="stat-total-pengumuman">3</h2>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -117,7 +117,7 @@
                             </div>
                             <div class="stat-info">
                                 <h3>Produk Pasar</h3>
-                                <h2>5</h2>
+                                <h2 id="stat-total-produk">5</h2>
                             </div>
                         </div>
                     </div>
@@ -265,6 +265,46 @@
                             <button type="submit" class="btn btn-primary">Simpan Kontak</button>
                         </form>
                     </div>
+
+                    <div class="admin-card form-card" style="margin-top: 20px;">
+                        <h3>Struktur Organisasi (Anggota)</h3>
+                        <form id="form-profil-org" class="admin-form">
+                            <div class="form-group grid-2">
+                                <div>
+                                    <label for="pr-nama">Nama Lengkap</label>
+                                    <input type="text" id="pr-nama" placeholder="Nama pengurus">
+                                </div>
+                                <div>
+                                    <label for="pr-jabatan">Jabatan</label>
+                                    <input type="text" id="pr-jabatan" placeholder="Contoh: Ketua / Sekretaris">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pr-foto-input">Foto Profil</label>
+                                <input type="file" id="pr-foto-input" accept="image/*"
+                                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                            </div>
+                            <div class="form-actions" style="margin-top: 15px;">
+                                <button type="submit" class="btn btn-primary">Tambah Anggota</button>
+                            </div>
+                        </form>
+
+                        <div style="margin-top: 20px;">
+                            <h4>Daftar Anggota Saat Ini</h4>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Jabatan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="list-pengurus"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- View: Kelola Kegiatan -->
@@ -279,7 +319,7 @@
 
                     <div class="admin-card form-card">
                         <h3>Form Upload Kegiatan Baru</h3>
-                        <form class="admin-form">
+                        <form id="form-kegiatan" class="admin-form">
                             <div class="form-group grid-2">
                                 <div>
                                     <label for="k-judul">Judul Kegiatan</label>
@@ -319,10 +359,25 @@
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">Simpan & Publish</button>
-                                <button type="button" class="btn btn-outline"
-                                    style="border-color: #ddd; color: var(--clr-dark);">Batal</button>
                             </div>
                         </form>
+                    </div>
+
+                    <div class="admin-card" style="margin-top: 20px;">
+                        <h3>Daftar Kegiatan</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Judul</th>
+                                        <th>Tanggal</th>
+                                        <th>Kategori</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list-kegiatan"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -338,7 +393,7 @@
                     <div style="display: grid; grid-template-columns: 1fr; gap: 30px;">
                         <div class="admin-card form-card">
                             <h3>Buat Pengumuman Baru</h3>
-                            <form class="admin-form">
+                            <form id="form-pengumuman" class="admin-form">
                                 <div class="form-group grid-2">
                                     <div>
                                         <label for="p-judul">Judul Pengumuman</label>
@@ -355,14 +410,30 @@
                                         placeholder="Ketikkan detail informasi di sini..."></textarea>
                                 </div>
                                 <div class="form-actions" style="margin-top: 20px; padding-top: 15px;">
-                                    <button type="button" class="btn btn-primary">Publish Pengumuman</button>
+                                    <button type="submit" class="btn btn-primary">Publish Pengumuman</button>
                                 </div>
                             </form>
+
+                            <div style="margin-top: 20px;">
+                                <h4>Daftar Pengumuman</h4>
+                                <div class="table-responsive">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Judul</th>
+                                                <th>Tanggal</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list-pengumuman"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="admin-card form-card">
                             <h3>Tambah Produk Pasar Baru</h3>
-                            <form class="admin-form">
+                            <form id="form-pasar" class="admin-form">
                                 <div class="form-group grid-2">
                                     <div>
                                         <label for="ps-nama">Nama Produk</label>
@@ -379,58 +450,36 @@
                                         <input type="text" id="ps-badge" placeholder="Contoh: Pre-Order / Terlaris">
                                     </div>
                                     <div>
-                                        <label for="ps-foto">Foto Produk</label>
-                                        <input type="file" id="ps-foto" accept="image/*"
-                                            style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
+                                        <label for="ps-foto-input">Foto Produk</label>
+                                        <input type="file" id="ps-foto-input" accept="image/*"
+                                            style="width: 100%; border: 1px solid #ddd; padding: 8px; border-radius: 8px;">
                                     </div>
                                 </div>
                                 <div class="form-actions" style="margin-top: 20px; padding-top: 15px;">
-                                    <button type="button" class="btn btn-primary">Simpan Produk</button>
+                                    <button type="submit" class="btn btn-primary">Simpan Produk</button>
                                 </div>
                             </form>
+
+                            <div style="margin-top: 20px;">
+                                <h4>Daftar Produk</h4>
+                                <div class="table-responsive">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th>Harga</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list-pasar"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- View: Kelola Profil -->
-                <div id="profil-view" class="admin-view">
-                    <div class="view-header">
-                        <div>
-                            <h2>Kelola Pengurus & Profil</h2>
-                            <p>Update struktur organisasi atau data kontak sekretariat.</p>
-                        </div>
-                    </div>
 
-                    <div class="admin-card form-card">
-                        <h3>Update Anggota Pengurus</h3>
-                        <form class="admin-form">
-                            <div class="form-group grid-2">
-                                <div>
-                                    <label for="pr-nama">Nama Lengkap</label>
-                                    <input type="text" id="pr-nama" placeholder="Nama pengurus">
-                                </div>
-                                <div>
-                                    <label for="pr-jabatan">Jabatan</label>
-                                    <select id="pr-jabatan">
-                                        <option value="ketua">Ketua</option>
-                                        <option value="wakil">Wakil Ketua</option>
-                                        <option value="sekretaris">Sekretaris</option>
-                                        <option value="bendahara">Bendahara</option>
-                                        <option value="seksi">Ketua Seksi</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="pr-foto">Upload Foto Profil</label>
-                                <input type="file" id="pr-foto" accept="image/*"
-                                    style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Update Pengurus</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -554,11 +603,149 @@
                         sidebar.classList.remove('active');
                     }
 
-                    // Load Data if switching to Beranda or Profil
+                    // Load Data if switching to views
                     if (targetId === 'beranda-view') loadHomeForm();
                     if (targetId === 'profil-view') loadProfilForm();
+                    if (targetId === 'kegiatan-view') loadKegiatanList();
+                    if (targetId === 'pengumuman-view') {
+                        loadPengumumanList();
+                        loadPasarList();
+                    }
                 });
             });
+
+            // =========================================================
+            // DASHBOARD DYNAMIC STATS
+            // =========================================================
+            function fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+            }
+
+            function updateDashboardStats() {
+                const activities = DataManager.load(DataManager.KEYS.KEGIATAN) || [];
+                const announcements = DataManager.load(DataManager.KEYS.PENGUMUMAN) || [];
+                const products = DataManager.load(DataManager.KEYS.PASAR) || [];
+
+                // Update Stats (find elements by their icons or text since they don't have IDs yet)
+                // Let's add IDs to ensure reliability
+                const statKegiatan = document.getElementById('stat-total-kegiatan');
+                const statPengumuman = document.getElementById('stat-total-pengumuman');
+                const statLayanan = document.getElementById('stat-total-produk');
+
+                if (statKegiatan) statKegiatan.textContent = activities.length;
+                if (statPengumuman) statPengumuman.textContent = announcements.length;
+                if (statLayanan) statLayanan.textContent = products.length;
+
+                // Update Aktivitas Terbaru Table
+                const latestTable = document.querySelector('.admin-table tbody');
+                if (latestTable && !latestTable.id) { // Ensure we target the main dashboard table
+                    // Combine and sort by date or id (timestamp)
+                    const allLatest = [
+                        ...activities.map(a => ({ ...a, type: 'Kegiatan' })),
+                        ...announcements.map(a => ({ ...a, type: 'Pengumuman' }))
+                    ].sort((a, b) => b.id - a.id).slice(0, 5);
+
+                    latestTable.innerHTML = allLatest.map(item => `
+                        <tr>
+                            <td>${item.title}</td>
+                            <td>${item.type}</td>
+                            <td>${item.date}</td>
+                            <td><span class="status-badge status-active">Published</span></td>
+                        </tr>
+                     `).join('');
+                }
+            }
+
+            // Call on load
+            updateDashboardStats();
+
+            // =========================================================
+            // CRUD LOGIC & LIST RENDERING
+            // =========================================================
+
+            window.deleteItem = function (key, id) {
+                if (confirm('Apakah Anda yakin ingin menghapus item ini?')) {
+                    let items = DataManager.load(key) || [];
+                    items = items.filter(item => String(item.id) !== String(id));
+                    DataManager.save(key, items);
+
+                    // Refresh listing
+                    if (key === DataManager.KEYS.KEGIATAN) loadKegiatanList();
+                    if (key === DataManager.KEYS.PENGUMUMAN) loadPengumumanList();
+                    if (key === DataManager.KEYS.PASAR) loadPasarList();
+                    updateDashboardStats();
+                }
+            };
+
+            window.deleteMember = function (id) {
+                if (confirm('Apakah Anda yakin ingin menghapus anggota ini?')) {
+                    const data = DataManager.load(DataManager.KEYS.PROFIL);
+                    data.organisasi = data.organisasi.filter(m => String(m.id) !== String(id));
+                    DataManager.save(DataManager.KEYS.PROFIL, data);
+                    loadOrgList();
+                }
+            };
+
+            function loadOrgList() {
+                const data = DataManager.load(DataManager.KEYS.PROFIL);
+                const tbody = document.getElementById('list-pengurus');
+                if (!tbody || !data) return;
+                tbody.innerHTML = data.organisasi.map(item => `
+                    <tr>
+                        <td style="width: 50px;"><img src="${item.foto}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;"></td>
+                        <td>${item.nama}</td>
+                        <td>${item.jabatan}</td>
+                        <td><button class="action-btn delete-btn" onclick="deleteMember('${item.id}')" style="color: var(--clr-primary); border: none; background: none; cursor: pointer; font-size: 1.2rem;"><i class='bx bx-trash'></i></button></td>
+                    </tr>
+                `).join('');
+            }
+
+            function loadKegiatanList() {
+                const activities = DataManager.load(DataManager.KEYS.KEGIATAN) || [];
+                const tbody = document.getElementById('list-kegiatan');
+                if (!tbody) return;
+                tbody.innerHTML = activities.map(item => `
+                    <tr>
+                        <td style="width: 50px;"><img src="${item.image}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;"></td>
+                        <td>${item.title}</td>
+                        <td>${item.date}</td>
+                        <td><span class="badge" style="background: #eee; color: #333; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">${item.category}</span></td>
+                        <td><button class="action-btn delete-btn" onclick="deleteItem('${DataManager.KEYS.KEGIATAN}', '${item.id}')" style="color: var(--clr-primary); border: none; background: none; cursor: pointer; font-size: 1.2rem;"><i class='bx bx-trash'></i></button></td>
+                    </tr>
+                `).join('');
+            }
+
+            function loadPengumumanList() {
+                const list = DataManager.load(DataManager.KEYS.PENGUMUMAN) || [];
+                const tbody = document.getElementById('list-pengumuman');
+                if (!tbody) return;
+                tbody.innerHTML = list.map(item => `
+                    <tr>
+                        <td>${item.title}</td>
+                        <td>${item.date}</td>
+                        <td><button class="action-btn delete-btn" onclick="deleteItem('${DataManager.KEYS.PENGUMUMAN}', '${item.id}')" style="color: var(--clr-primary); border: none; background: none; cursor: pointer; font-size: 1.2rem;"><i class='bx bx-trash'></i></button></td>
+                    </tr>
+                `).join('');
+            }
+
+            function loadPasarList() {
+                const products = DataManager.load(DataManager.KEYS.PASAR) || [];
+                const tbody = document.getElementById('list-pasar');
+                if (!tbody) return;
+                tbody.innerHTML = products.map(item => `
+                    <tr>
+                        <td style="width: 50px;"><img src="${item.image}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;"></td>
+                        <td>${item.name}</td>
+                        <td>Rp ${item.price.toLocaleString()}</td>
+                        <td><button class="action-btn delete-btn" onclick="deleteItem('${DataManager.KEYS.PASAR}', '${item.id}')" style="color: var(--clr-primary); border: none; background: none; cursor: pointer; font-size: 1.2rem;"><i class='bx bx-trash'></i></button></td>
+                    </tr>
+                `).join('');
+            }
 
             // =========================================================
             // CRUD LOGIC FOR BERANDA & PROFIL
@@ -583,6 +770,7 @@
                 document.getElementById('contact-ig-input').value = data.kontak.ig;
                 document.getElementById('contact-fb-input').value = data.kontak.fb;
                 document.getElementById('contact-alamat-input').value = data.kontak.alamat;
+                loadOrgList();
             }
 
             // Form Submissions
@@ -634,6 +822,144 @@
                     data.kontak.alamat = document.getElementById('contact-alamat-input').value;
                     DataManager.save(DataManager.KEYS.PROFIL, data);
                     alert('Kontak berhasil diperbarui!');
+                });
+            }
+
+            const formOrg = document.getElementById('form-profil-org');
+            if (formOrg) {
+                formOrg.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const nama = document.getElementById('pr-nama').value;
+                    const jabatan = document.getElementById('pr-jabatan').value;
+                    const fotoFile = document.getElementById('pr-foto-input').files[0];
+                    if (!nama || !jabatan) return alert('Mohon isi nama dan jabatan!');
+
+                    let fotoUrl = 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=1887&auto=format&fit=crop';
+                    if (fotoFile) {
+                        try {
+                            fotoUrl = await fileToBase64(fotoFile);
+                        } catch (err) {
+                            console.error('Error reading file:', err);
+                        }
+                    }
+
+                    const data = DataManager.load(DataManager.KEYS.PROFIL);
+                    data.organisasi.unshift({
+                        id: Date.now(),
+                        nama,
+                        jabatan,
+                        foto: fotoUrl
+                    });
+                    DataManager.save(DataManager.KEYS.PROFIL, data);
+                    alert('Anggota pengurus berhasil ditambahkan!');
+                    formOrg.reset();
+                    loadOrgList();
+                });
+            }
+
+            // --- CRUD for Kegiatan ---
+            const formKegiatan = document.getElementById('form-kegiatan');
+            if (formKegiatan) {
+                formKegiatan.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const title = document.getElementById('k-judul').value;
+                    const date = document.getElementById('k-tanggal').value;
+                    const category = document.getElementById('k-kategori').value;
+                    const content = document.getElementById('k-deskripsi').value;
+                    const fotoFile = document.getElementById('k-foto').files[0];
+
+                    if (!title || !date || !content) {
+                        alert('Mohon isi semua field!');
+                        return;
+                    }
+
+                    let imageUrl = 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop';
+                    if (fotoFile) {
+                        try {
+                            imageUrl = await fileToBase64(fotoFile);
+                        } catch (err) {
+                            console.error('Error reading file:', err);
+                        }
+                    }
+
+                    const activities = DataManager.load(DataManager.KEYS.KEGIATAN) || [];
+                    activities.unshift({
+                        id: Date.now(),
+                        title,
+                        date,
+                        category,
+                        content,
+                        image: imageUrl
+                    });
+                    DataManager.save(DataManager.KEYS.KEGIATAN, activities);
+                    alert('Kegiatan berhasil ditambahkan!');
+                    formKegiatan.reset();
+                    loadKegiatanList();
+                    updateDashboardStats();
+                });
+            }
+
+            // --- CRUD for Pengumuman ---
+            const formPengumuman = document.getElementById('form-pengumuman');
+            if (formPengumuman) {
+                formPengumuman.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const title = document.getElementById('p-judul').value;
+                    const date = document.getElementById('p-tanggal').value;
+                    const content = document.getElementById('p-isi').value;
+
+                    if (!title || !date || !content) {
+                        alert('Mohon isi semua field!');
+                        return;
+                    }
+
+                    const list = DataManager.load(DataManager.KEYS.PENGUMUMAN) || [];
+                    list.unshift({ id: Date.now(), title, date, content });
+                    DataManager.save(DataManager.KEYS.PENGUMUMAN, list);
+                    alert('Pengumuman berhasil dipublikasikan!');
+                    formPengumuman.reset();
+                    loadPengumumanList();
+                    updateDashboardStats();
+                });
+            }
+
+            // --- CRUD for Pasar ---
+            const formPasar = document.getElementById('form-pasar');
+            if (formPasar) {
+                formPasar.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('ps-nama').value;
+                    const price = document.getElementById('ps-harga').value;
+                    const badge = document.getElementById('ps-badge').value;
+                    const fotoFile = document.getElementById('ps-foto-input').files[0];
+
+                    if (!name || !price) {
+                        alert('Mohon isi nama dan harga produk!');
+                        return;
+                    }
+
+                    let imageUrl = 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1780&auto=format&fit=crop';
+                    if (fotoFile) {
+                        try {
+                            imageUrl = await fileToBase64(fotoFile);
+                        } catch (err) {
+                            console.error('Error reading file:', err);
+                        }
+                    }
+
+                    const products = DataManager.load(DataManager.KEYS.PASAR) || [];
+                    products.unshift({
+                        id: Date.now(),
+                        name,
+                        price: parseInt(price),
+                        badge,
+                        image: imageUrl
+                    });
+                    DataManager.save(DataManager.KEYS.PASAR, products);
+                    alert('Produk berhasil ditambahkan ke Pasar OMK!');
+                    formPasar.reset();
+                    loadPasarList();
+                    updateDashboardStats();
                 });
             }
         });
