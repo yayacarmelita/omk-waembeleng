@@ -360,6 +360,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const sidebar = document.getElementById('adminSidebar');
+            const openBtn = document.getElementById('openSidebarBtn');
+            const closeBtn = document.getElementById('closeSidebarBtn');
+            const navLinks = document.querySelectorAll('.sidebar-nav .sidebar-link');
+            const views = document.querySelectorAll('.admin-view');
+            const topbarTitle = document.querySelector('.topbar-left h2');
+
             // Set current admin email on topbar
             const currentEmail = localStorage.getItem('omk_admin_current');
             if (currentEmail) {
@@ -379,23 +387,22 @@
             // Modal Tambah Admin Logic
             const modal = document.getElementById('addAdminModal');
             const openModalBtn = document.getElementById('addAdminBtn');
-            const closeBtn = document.getElementById('closeAdminModal');
-            const cancelBtn = document.getElementById('cancelAdminModal');
-            const form = document.getElementById('newAdminForm');
+            const closeModalBtn = document.getElementById('closeAdminModal');
+            const cancelModalBtn = document.getElementById('cancelAdminModal');
+            const adminForm = document.getElementById('newAdminForm');
 
             if (openModalBtn) openModalBtn.addEventListener('click', () => modal.classList.add('active'));
-            if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-            if (cancelBtn) cancelBtn.addEventListener('click', () => modal.classList.remove('active'));
+            if (closeModalBtn) closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+            if (cancelModalBtn) cancelModalBtn.addEventListener('click', () => modal.classList.remove('active'));
 
-            if (form) {
-                form.addEventListener('submit', (e) => {
+            if (adminForm) {
+                adminForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     const newEmail = document.getElementById('newAdminEmail').value.trim();
                     const newPass = document.getElementById('newAdminPassword').value;
 
                     try {
                         const users = JSON.parse(localStorage.getItem('omk_admin_users')) || [];
-                        // Check if exists
                         if (users.find(u => u.email === newEmail)) {
                             alert('Email ini sudah terdaftar sebagai admin!');
                             return;
@@ -404,12 +411,13 @@
                         localStorage.setItem('omk_admin_users', JSON.stringify(users));
                         alert('Admin baru berhasil ditambahkan!');
                         modal.classList.remove('active');
-                        form.reset();
+                        adminForm.reset();
                     } catch (err) {
                         alert('Gagal menambahkan admin.');
                     }
                 });
             }
+
             // Sidebar toggle
             if (openBtn) openBtn.addEventListener('click', () => sidebar.classList.add('active'));
             if (closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
